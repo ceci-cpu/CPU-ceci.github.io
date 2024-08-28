@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Imágenes - Tesis Gestión 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #FFD700;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #images-container {
+            margin-top: 20px;
+        }
+        #images-container img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        #images-container button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #FFD700;
+            border: none;
+            cursor: pointer;
+        }
+        #images-container button:hover {
+            background-color: #e5c100;
+        }
+        #images-container button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <p class="logo">Visualizador de Tesis</p>
+        </div>
+    </header>
+
+    <div id="images-container">
+        <button id="prev-btn">Anterior</button>
+        <img id="tesis-image" src="" alt="Imagen de la Tesis">
+        <button id="next-btn">Siguiente</button>
+    </div>
+
+    <script>
+        const images = [];
+        for (let i = 1; i <= 118; i++) {
+            const number = i.toString().padStart(3, '0');
+            images.push(`tesis292023/tesis292023-${number}.png`);
+        }
+
+        let currentIndex = 0;
+
+        document.getElementById('tesis-image').src = images[currentIndex];
+        updateButtons();
+
+        function updateButtons() {
+            document.getElementById('prev-btn').disabled = currentIndex === 0;
+            document.getElementById('next-btn').disabled = currentIndex === images.length;
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                document.getElementById('tesis-image').src = images[currentIndex];
+                updateButtons();
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                document.getElementById('tesis-image').src = images[currentIndex];
+                updateButtons();
+            } else {
+                // Redirigir al HTML de gestión_2024 al llegar a la última imagen
+                window.location.href = 'gestion_2024.html';
+            }
+        });
+    </script>
+</body>
+</html>
